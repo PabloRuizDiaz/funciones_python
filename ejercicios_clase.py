@@ -18,18 +18,22 @@ __version__ = "1.2"
 import random
 
 
-def imprimir_nombre(nombre, apellido):
-    pass
+def imprimir_nombre(nombre='Sin Nombre', apellido='Sin Apellido'):
     # En este lugar debe colocar el "print" e imprimir
     # en pantalla el nombre y apellido que vienen por parámetro
-    # print(.....)
+    print(nombre, apellido)
 
 
 def promedio(numeros):
     # Alumno:
     # 1) calcule el promedio
     # 2) use "return" para retornar ese valor
-    pass  # Cuando termine de implementar está función borrar "pass"
+    num = 0
+    
+    for numero in numeros:
+        num += numero
+    
+    return num / len(numeros)
 
 
 def ej1():
@@ -166,7 +170,32 @@ def ej5():
 
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
-    ej1()
+    
+    #ejercicio para def imprimir_nombre(nombre='Sin Nombre', apellido='Sin Apellido'):
+    
+    #nombre = str(input('Ingrese Nombre: '))
+    #apellido = str(input('Ingrese Apellido: '))
+    
+    #imprimir_nombre(nombre, apellido)
+
+    #ejercicio para def promedio(numeros)
+    notas = []
+    
+    print('Ingrese nota: (Para finalizar ingrese -1)')
+    
+    while True:
+        nota = int(input())
+
+        if nota == -1:
+            break
+        
+        notas.append(nota)
+    
+    avg = promedio(notas.copy())
+        
+    print('El Promedio de todas las notas es {}' .format(avg))
+    
+    # ej1()
     # ej2()
     # ej3()
     # ej4()

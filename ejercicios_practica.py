@@ -11,10 +11,13 @@ Programa creado para que practiquen los conocimietos
 adquiridos durante la semana
 '''
 
-__author__ = "Inove Coding School"
-__email__ = "alumnos@inove.com.ar"
+__author__ = "Pablo Ruiz Diaz"
+__email__ = "rd.pablo@gmail.com"
 __version__ = "1.3"
 
+
+import clase4
+import random
 
 def ej1():
     print('Comencemos a crear lo nuestro!')
@@ -55,14 +58,17 @@ def ej2():
     Imprimir en pantalla la lista ordenada
     '''
 
+    dados = []
+
+    dados = clase4.lista_aleatoria(1, 6, 5)
+
+    print('Resultado de los dados tirados\n{}' .format(dados))
+
 
 def ej3():
-    print("Jugando a los dados")
+    print("\nJugando a los dados")
 
     '''
-    Un dado común tiene 6 caras, 6 resultados posibles
-    1 - 2 - 3 - 4 - 5 - 6
-
     Utilice la función "lista_aleatoria" para generar
     5 tiros de dados (una lista de 5 valores con resultados posibles
     de un dado)
@@ -79,15 +85,37 @@ def ej3():
     d - Cuantsa veces aparece el número 4 en su lista de dados tirados
     e - Cuantsa veces aparece el número 5 en su lista de dados tirados
     f - Cuantsa veces aparece el número 6 en su lista de dados tirados
-
-
+    
     2)
     Utilice la función de Python max con la key de list.count para
     determinar cual fue el número que más se repitió. Consultar los ejemplos
     vistos en clase para ver como se implementa max con esa key
-
     '''
 
+    dados = []
+
+    dados = clase4.lista_aleatoria(1, 6, 5)
+
+    print('Resultado de los dados tirados\n{}' .format(dados))
+
+    dados_contar = []
+    posicion = []
+
+    for i in range(1,7):
+        num = dados.count(i)
+        print(i, ' salio {}' .format(num))
+
+        dados_contar.append(num) 
+
+    # el problema aca es que no me da todos los numeros si salen mas de uno con la misma repeticion max!!!
+    print(max(dados, key=dados.count), ' se repitio mas veces')   
+
+    for i in range(6):
+        if dados_contar[i] == max(dados_contar):
+            posicion.append(i + 1)
+    
+    print('Los valores {} se repitieron mas veces' .format(posicion))
+    
 
 def ej4():
     print("Ahora sí! buena suerte :)")
@@ -145,10 +173,58 @@ def ej4():
 
     '''
 
+    dados = clase4.lista_aleatoria(1, 6, 5)
+    dados_saved = []   # donde guardare los dados que no tire mas
+    
+    while True:
+        cara_cant = []  # lista de cantidad de veces que salio una cara del dado
+        dados_cara = []  # numeracion de cada cara del dado
+        
+        # cuento cuantas veces salieron cada cara del dado, y lo guardo en dados_contar
+        for i in range(1,7):
+            num = dados.count(i)
+
+            cara_cant.append(num) 
+
+        # verifico si es primer tiro para sacar el numero a juntar del dado          
+        if len(dados_saved) == 0:
+            # reviso cuales fueron las caras del dado que mas salieron
+            for i in range(6):
+                if cara_cant[i] == max(cara_cant):
+                    dados_cara.append(i + 1)
+            
+            # analizo si mas de una cara salio la misma cantidad de veces max, y discrimino cual se elige para seguir
+            while True:
+                if len(dados_cara) > 1:
+                    dados_cara.remove(max(dados_cara))
+                else:
+                    break    
+        
+            # separo los dados del mismo valor y sigo tirando con el resto
+            for i in range(max(cara_cant)):
+                dados_saved.append(dados_cara[0])
+                dados.remove(dados_cara[0])
+
+        else:
+            for i in range(len(dados)):
+                if dados_saved[0] == dados[i]:
+                    dados_saved.append(dados[i])
+                
+            for i in range(dados.count(dados_saved[0])):
+                dados.remove(dados_saved[0])
+
+
+        if len(dados_saved) == 5:
+            break
+    
+        dados = clase4.lista_aleatoria(1, 6, len(dados))
+    
+    print(dados, dados_saved)
+    
 
 if __name__ == '__main__':
     print("Ejercicios de práctica")
-    # ej1()
-    # ej2()
-    # ej3()
-    # ej4()
+    #ej1()
+    #ej2()
+    #ej3()
+    ej4()
